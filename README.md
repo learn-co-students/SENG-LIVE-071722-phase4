@@ -1,5 +1,7 @@
 # SENG-LIVE-Phase-4-theater-company-template
 
+Rails
+
 Phase Objectives
 - [ ] Create RESTful APIs
 - [ ] Validate data
