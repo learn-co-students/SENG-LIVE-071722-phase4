@@ -34,17 +34,17 @@ function ProductionForm({ addProduction }) {
         });
       } else {
         //Display errors
-        res
-          .json()
-          .then((data) =>
+        res.json()
+          .then((data) =>{
+            console.log(data)
+            console.log(Object.entries(data.errors))
             setErrors(Object.entries(data.errors).map((e) => `${e[0]} ${e[1]}`))
-          );
+      });
       }
     });
   }
   return (
     <div className="App">
-      {errors ? errors.map((e) => <div>{e}</div>) : null}
       <Form onSubmit={onSubmit}>
         <label>Title </label>
         <input

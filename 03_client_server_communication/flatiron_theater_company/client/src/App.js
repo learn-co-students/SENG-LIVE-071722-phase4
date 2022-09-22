@@ -12,6 +12,18 @@ function App() {
 
   useEffect(() => {
     //GET to '/productions'
+    fetch('/productions')
+    .then(res => {
+      if(res.ok){
+        res.json().then(data => {
+          console.log(data)
+          setProductions(data)
+        })
+      } else {
+        res.json().then(data => setErrors(data.error))
+      }
+    })
+
   }, []);
 
   const addProduction = (production) =>
