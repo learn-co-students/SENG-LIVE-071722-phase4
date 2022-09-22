@@ -22,6 +22,17 @@ function ProductionDetail({deleteProduction}) {
 
   function handleDelete(){
     //DELETE to `/productions/${params.id}`
+    fetch(`/productions/${params.id}`,{
+      method:'DELETE'
+    })
+    .then(res => {
+      if(res.ok){
+        deleteProduction(id)
+        history.push('/')
+      } else {
+        res.json().then(data => setErrors(Object.entries(data.errors).map(e => `${e[0]} ${e[1]}`)))
+      }
+    })
  
   }
   

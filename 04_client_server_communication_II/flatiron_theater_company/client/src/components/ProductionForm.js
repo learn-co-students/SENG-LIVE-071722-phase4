@@ -20,11 +20,22 @@ function ProductionForm({ addProduction }) {
   function onSubmit(e) {
     e.preventDefault();
     //POST '/productions'
+    fetch('/productions',{
+      method:'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({...formData, ongoing:true})
+    })
+    .then(res => {
+      if(res.ok){
+        res.json().then(addProduction)
+      } else {
+        res.json().then(data => setErrors(Object.entries(data.errors).map(e => `${e[0]} ${e[1]}`)))
+      }
+    })
   }
 
   return (
     <div className="App">
-      {errors ? errors.map((e) => <div>{e}</div>) : null}
       <Form onSubmit={onSubmit}>
         <label>Title </label>
         <input
@@ -78,6 +89,7 @@ function ProductionForm({ addProduction }) {
 
         <input type="submit" value="Update Production" />
       </Form>
+      {errors ? errors.map((e) => <h2 style={{color:'red'}}>{e.toUpperCase()}</h2>) : null}
     </div>
   );
 }

@@ -27,10 +27,22 @@ function EditProductionForm({ updateProduction }) {
   function onSubmit(e) {
     e.preventDefault();
     //PATCH to `/productions/${id}`
+    fetch(`/productions/1000`,{
+      method:'PATCH',
+      headers: {'Content-Type':'application/json'},
+      body:JSON.stringify(formData)
+    })
+    .then(res => {
+      if(res.ok){
+        res.json().then(updateProduction)
+      } else {
+        res.json().then(data => setErrors(Object.entries(data.errors).map(e => `${e[0]} ${e[1]}`)))
+      }
+    })
+
   }
   return (
     <div className="App">
-      {errors ? errors.map((e) => <div>{e}</div>) : null}
       <Form onSubmit={onSubmit}>
         <label>Title </label>
         <input
@@ -84,6 +96,7 @@ function EditProductionForm({ updateProduction }) {
 
         <input type="submit" value="Update Production" />
       </Form>
+      {errors ? errors.map((e) => <h2 style={{color:'red'}}>{e.toUpperCase()}</h2>) : null}
     </div>
   );
 }
