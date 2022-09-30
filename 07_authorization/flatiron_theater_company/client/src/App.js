@@ -14,6 +14,7 @@ import NotFound from './components/NotFound'
 function App() {
   const [productions, setProductions] = useState([])
   const [errors, setErrors] = useState(false)
+  const [currentUser, setCurrentUser] = useState(false) //currentUser.admin
 
   useEffect(() => {
     fetchProductions()

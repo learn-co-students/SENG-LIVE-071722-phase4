@@ -1,5 +1,6 @@
 class ProductionsController < ApplicationController
-
+    before_action :is_authorized?, only: [:create, :update, :destroy]
+    
     def index 
         render json: Production.all, status: :ok
     end 
